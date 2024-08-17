@@ -1,0 +1,10 @@
+name = "Reservoir"
+uuid = "ec595466-2fcb-4c20-bd99-93d0b63368e8"
+authors = ["Steve Frank <saf@stevefrank.org>"]
+version = "0.1.0"
+
+[deps]
+MLJLinearModels = "6ee0df7b-362f-4a72-a706-9e79364fb692"
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+ReservoirComputing = "7c2d2b1e-3dd4-11ea-355a-8f6a8116e294"
