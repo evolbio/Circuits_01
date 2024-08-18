@@ -38,35 +38,35 @@ I outline the basic steps for installing Julia and running the code.
 
 8. You should only instantiate once for each project. The next time you start the same project, it should be ready immediately without moving to the package prompt. If you move to another project for the first time, you do need to repeat this process. Each project has its own environment and has to be instantiated the first time the project is used.
 
-   # Running the code in a project
+# Running the code in a project
 
-   In each project directory, there is a src subdirectory. In that subdirectory is a file, Run.jl. The code to reproduce one or more figures in the manuscript is in that Run.jl file.
+In each project directory, there is a src subdirectory. In that subdirectory is a file, Run.jl. The code to reproduce one or more figures in the manuscript is in that Run.jl file.
 
-   Let's look at the Reservoir project as an example. To run the code, first open a terminal, change directory to the the Reservoir directory, and then start Julia with `julia --project=.`
+Let's look at the Reservoir project as an example. To run the code, first open a terminal, change directory to the the Reservoir directory, and then start Julia with `julia --project=.`
 
-   Then all that is needed to produce Figure 1 of the manuscript is to copy and paste the first lines from Run.jl, in particular copy and paste these lines:
+Then all that is needed to produce Figure 1 of the manuscript is to copy and paste the first lines from Run.jl, in particular copy and paste these lines:
 
-   ```julia
-   using Reservoir, ReservoirComputing, Random, Plots
-   
-   Random.seed!(42);		# fix seed to get repeatable results
-   
-   alpha = 0.05;			# leaky coefficient for RNN
-   input_time = 300;
-   input_steps_per_unit = 20;
-   res_size = 20;			# set spectral radius to 1.0 and sparsity to 0.4
-   train_frac = 2/3;
-   input_complexity = 3;
-   offset_units = 2.0;
-   use_lasso = true;		# false => ridge regression or linear regression
-   lasso_loss = 7e-4;
-   ridge_loss = 1e-4;		# 0 => standard linear regression
-   show_train=false;
-   
-   pl, test_output, train_output, output_layer = driver(input_time, input_steps_per_unit, 
-   		input_complexity, offset_units, res_size, train_frac, alpha, use_lasso, 
-   		lasso_loss, ridge_loss, show_train);
-   display(pl);
+```julia
+using Reservoir, ReservoirComputing, Random, Plots
+
+Random.seed!(42);		# fix seed to get repeatable results
+
+alpha = 0.05;			# leaky coefficient for RNN
+input_time = 300;
+input_steps_per_unit = 20;
+res_size = 20;			# set spectral radius to 1.0 and sparsity to 0.4
+train_frac = 2/3;
+input_complexity = 3;
+offset_units = 2.0;
+use_lasso = true;		# false => ridge regression or linear regression
+lasso_loss = 7e-4;
+ridge_loss = 1e-4;		# 0 => standard linear regression
+show_train=false;
+
+pl, test_output, train_output, output_layer = driver(input_time, input_steps_per_unit, 
+	input_complexity, offset_units, res_size, train_frac, alpha, use_lasso, 
+	lasso_loss, ridge_loss, show_train);
+display(pl);
 
 This should produce Figure 1. The same procedure for the other project directories should produce the other figures in the manuscript.
 
