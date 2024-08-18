@@ -67,6 +67,7 @@ pl, test_output, train_output, output_layer = driver(input_time, input_steps_per
 	input_complexity, offset_units, res_size, train_frac, alpha, use_lasso, 
 	lasso_loss, ridge_loss, show_train);
 display(pl);
+```
 
 This should produce Figure 1. The same procedure for the other project directories should produce the other figures in the manuscript.
 
