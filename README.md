@@ -2,7 +2,7 @@
 
 Julia source code for manuscript:
 
-Frank, S. A. 2024. Circuit design in biology and machine learning. I. Random networks and dimensional reduction. arXiv (forthcoming).
+Frank, S. A. 2024. Circuit design in biology and machine learning. I. Random networks and dimensional reduction. [arXiv:2408.09604](https://doi.org/10.48550/arXiv.2408.09604).
 
 by Steven A. Frank, <https://stevefrank.org>.
 
