@@ -1,4 +1,5 @@
 # Custom RNN layer
+using NNlib
 
 ##############################################################
 # Works only if RNN_saf layers are the first ones in the line,
@@ -34,7 +35,7 @@ end
 
 ################## RNN_saf layer definition ##################################
 
-abstract type AbstractRecurrentCell{use_bias} <: Lux.AbstractExplicitLayer end
+abstract type AbstractRecurrentCell{use_bias} <: Lux.AbstractLuxLayer end
 
 @concrete struct RNN_saf{use_bias} <: 
 				AbstractRecurrentCell{use_bias}

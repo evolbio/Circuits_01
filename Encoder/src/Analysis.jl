@@ -151,7 +151,7 @@ function pred_val(T, d)
 	return ts, y, y_pred, y_diff
 end
 
-struct PrintLayer <: Lux.AbstractExplicitLayer end
+struct PrintLayer <: Lux.AbstractLuxLayer end
 
 @inline function (prn::PrintLayer)(x, ps, st::NamedTuple)
 	println("x = ", x)
@@ -275,16 +275,20 @@ function plot_log_node1(d, st, layer, y_pred; r=143:257)
 	st2 = layer[2][:,2]	# state 2 output from first layer, input into 2nd layer
 	@printf("\nDays per switch = %.2f\n", length(y_pred)/switches(y_pred))
 	@printf("match = %.2f\n", accuracy(y_pred[1:end-d.os],calc_y_true(calc_y_diff(y,d.os))))
-		
+	
+	mean_yr = mean(y[r])
+	# momentum stored in opposite sign, then shrink deviations to show input better
+	st2_tr = 0.1*(-st2[r]*mean_yr/mean(st2[r]) .+ y[r]) .+ y[r]
 	# show match for shifted input, state 2 output is prior input value * constant value
 	pl = plot(layout=(3,1), size=(500,600), legend=:none, left_margin=0.8cm)
-	plot!(r,[y[r.-1],st2[r]*mean(y[r.-1])/mean(st2[r])],subplot=1,w=1.5,
-		color=[mma[1] mma[2]],yticks=0.55:0.05:0.65)
-	plot!(r,[y[r],st1[r]*mean(y[r])/mean(st1[r])],subplot=2,w=1.5,color=[mma[1] mma[2]])
+	plot!(r,[y[r.-1],st1[r]*mean(y[r.-1])/mean(st1[r])],subplot=1,w=1.5,
+		color=[mma[1] mma[2]], yticks=0.55:0.05:0.65)
+	plot!(r,[y[r],st2_tr],subplot=2,w=1.5,
+		color=[mma[1] mma[2]])
 	plot!(r,2*(y_pred[r].-0.5),subplot=3,w=1.5,color=[mma[1] mma[2]],bottom_margin=0.6cm)
 	annotate!(pl[3],(0.5,-0.25),"Temporal sample points",12)
-	annotate!(pl[1],(-0.13,0.5),text("Input value",11,rotation=90))
-	annotate!(pl[2],(-0.13,0.5),text("Input value",11,rotation=90))
+	annotate!(pl[1],(-0.13,0.5),text("Input or state value",11,rotation=90))
+	annotate!(pl[2],(-0.13,0.5),text("Input or state value",11,rotation=90))
 	annotate!(pl[3],(-0.13,0.5),text("Predicted direction",11,rotation=90))
 	chrs = 'a':'z'
 	for i in 1:3

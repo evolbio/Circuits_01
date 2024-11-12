@@ -1,6 +1,10 @@
 module Reservoir
 using ReservoirComputing, Plots, MLJLinearModels
-export make_esn, u, test_state, predict, plot_all, setup, driver
+include("Illustration.jl")
+using .Illustration
+export make_esn, u, test_state, predict, plot_all, setup, driver,
+	illustrate_driver, illustrate_driver_full, normalize!,
+	print_mathematica
 
 ####################################################################
 # colors, see MMAColors.jl in my private modules
